@@ -1,0 +1,15 @@
+networks:
+  hotel-internal:
+    driver: bridge
+
+services:
+
+  notificacao:
+    build:
+      context: ./notificacao
+      dockerfile: dockerFile
+    container_name: notificacao
+    ports:
+      - 8080:8080
+    networks:
+        - hotel-internal

@@ -1,0 +1,14 @@
+# k8s/notificacao-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: notificacao
+  namespace: hotelaria
+spec:
+  selector:
+    app: notificacao
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP

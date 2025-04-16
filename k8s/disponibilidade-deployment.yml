@@ -1,0 +1,22 @@
+# k8s/disponibilidade-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: disponibilidade
+  namespace: hotelaria
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: disponibilidade
+  template:
+    metadata:
+      labels:
+        app: disponibilidade
+    spec:
+      containers:
+        - name: disponibilidade
+          image: luizdevops/disponibilidade:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080

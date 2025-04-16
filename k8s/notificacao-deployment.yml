@@ -1,0 +1,22 @@
+# k8s/notificacao-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notificacao
+  namespace: hotelaria
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notificacao
+  template:
+    metadata:
+      labels:
+        app: notificacao
+    spec:
+      containers:
+        - name: notificacao
+          image: luizdevops/notificacao:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
