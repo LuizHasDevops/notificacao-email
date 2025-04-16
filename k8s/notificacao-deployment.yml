@@ -1,11 +1,10 @@
-# k8s/notificacao-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: notificacao
   namespace: hotelaria
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: notificacao
@@ -20,3 +19,27 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - mountPath: "/app/data"
+              name: h2-storage
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 3
+      volumes:
+        - name: h2-storage
+          persistentVolumeClaim:
+            claimName: h2-db-pvc

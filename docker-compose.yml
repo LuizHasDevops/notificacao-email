@@ -13,3 +13,5 @@ services:
       - 8080:8080
     networks:
         - hotel-internal
+    volumes:
+      - ./notificacao/target/notificacao-0.0.1-SNAPSHOT.jar:/app.jar
